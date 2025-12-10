@@ -12,25 +12,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Size {
-  PEQUENINO
-  MEDIO
-  GRANDE
-}
-
-enum Age {
-  FILHOTE
-  JUVENIL
-  ADULTO
-  MADURO
-}
-
-enum Independency {
-  BAIXO
-  MEDIO
-  ALTO
-}
-
 model Organization {
   id String @id @default(uuid())
   name String
@@ -50,9 +31,9 @@ model Pet {
   name String
   about String?
   energy_level Int
-  size Size
-  age Age
-  independency Independency
+  size String
+  age String
+  independency String
   environment String
   created_at DateTime @default(now())
 
