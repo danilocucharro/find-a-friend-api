@@ -1,7 +1,7 @@
 import { InMemoryOrgsRepository } from "src/repositories/in-memory/in-memory-orgs-repository.js";
 import { describe, expect, it } from "vitest";
 import { AuthenticateUseCase } from "../authenticate.js";
-import { InvalidCredentialsError } from "src/errors/InvalidCredentialsError.js";
+import { InvalidCredentialsError } from "src/use-cases/errors/InvalidCredentialsError.js";
 
 describe("Authenticate Use Case", () => {
   it("should be able to authenticate", async () => {

@@ -1,4 +1,4 @@
-import type { Organization, Prisma } from "@prisma/client";
+import type { Organization, Pet, Prisma } from "@prisma/client";
 import type { OrgsRepository } from "../orgs-repository.js";
 import { randomUUID } from "node:crypto";
 import { hash } from "bcryptjs";

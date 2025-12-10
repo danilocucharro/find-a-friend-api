@@ -35,6 +35,7 @@ model Pet {
   age String
   independency String
   environment String
+  city String
   created_at DateTime @default(now())
 
   org Organization @relation(fields: [org_id], references: [id])

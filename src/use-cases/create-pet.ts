@@ -10,6 +10,7 @@ interface CreatePetUseCaseRequest {
   independency: string;
   environment: string;
   org_id: string;
+  city: string;
 }
 
 interface CreatePetUseCaseResponse {
@@ -32,6 +33,7 @@ export class CreatePetUseCase {
     name,
     org_id,
     size,
+    city,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
     const pet = await this.petsRepository.create({
       age,
@@ -42,6 +44,7 @@ export class CreatePetUseCase {
       org_id,
       size,
       about,
+      city,
     });
 
     return { pet };

@@ -34,6 +34,7 @@ describe("Create Pet Use Case", () => {
       energy_level: 5,
       environment: "Ambiente amplo",
       independency: "Baixo",
+      city: org.city,
       name: "Jumanji",
       org_id: org.id,
       size: "Pequenino",

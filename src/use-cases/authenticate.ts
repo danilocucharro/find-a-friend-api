@@ -1,5 +1,5 @@
 import { compare } from "bcryptjs";
-import { InvalidCredentialsError } from "src/errors/InvalidCredentialsError.js";
+import { InvalidCredentialsError } from "src/use-cases/errors/InvalidCredentialsError.js";
 import type { OrgsRepository } from "src/repositories/orgs-repository.js";
 
 export class AuthenticateUseCase {
