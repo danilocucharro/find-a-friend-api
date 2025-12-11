@@ -2,13 +2,14 @@ import type { Prisma, Pet } from "@prisma/client";
 import type { PetsRepository } from "../pets-repository.js";
 import { randomUUID } from "node:crypto";
 import { ContentNotFoundError } from "src/use-cases/errors/ContentNotFoundError.js";
+import { BadRequestError } from "src/use-cases/errors/BadRequestError.js";
 
 export class InMemoryPetsRepository implements PetsRepository {
-  public pet: Pet[] = [];
+  public pets: Pet[] = [];
 
   async create(data: Prisma.PetUncheckedCreateInput) {
     const pet = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       name: data.name,
       about: data.about ?? "",
       energy_level: data.energy_level,
@@ -21,9 +22,17 @@ export class InMemoryPetsRepository implements PetsRepository {
       created_at: new Date(),
     };
 
-    this.pet.push(pet);
+    this.pets.push(pet);
 
     return pet;
+  }
+
+  async findById(petId: string) {
+    const searchedPet = this.pets.find((pet) => pet.id === petId);
+
+    if (!searchedPet) return null;
+
+    return searchedPet;
   }
 
   async fetchPetsByCityAndPetInfo(
@@ -34,18 +43,28 @@ export class InMemoryPetsRepository implements PetsRepository {
     independency?: string,
     size?: string
   ) {
-    const pets = this.pet.filter(
-      (pet) =>
-        pet.city === city &&
-        (pet.age === age ||
-          pet.energy_level === energy_level ||
-          pet.environment === environment ||
-          pet.independency === independency ||
-          pet.size === size)
-    );
+    if (!city) throw new BadRequestError();
 
-    if (!pets) throw new ContentNotFoundError();
+    const filteredPets = this.pets.filter((pet) => {
+      const cityCondition = pet.city === city;
+      const ageCondition = !age || pet.age === age;
+      const energyLevelCondition = !energy_level || pet.energy_level;
+      const environmentCondition = !environment || pet.environment;
+      const independencyCondition = !independency || pet.independency;
+      const sizeCondition = !size || pet.size;
 
-    return pets;
+      return (
+        cityCondition &&
+        ageCondition &&
+        energyLevelCondition &&
+        environmentCondition &&
+        independencyCondition &&
+        sizeCondition
+      );
+    });
+
+    if (!filteredPets) throw new ContentNotFoundError();
+
+    return filteredPets;
   }
 }

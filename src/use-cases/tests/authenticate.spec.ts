@@ -48,7 +48,7 @@ describe("Authenticate Use Case", () => {
 
     await orgsRepository.create(createOrg);
 
-    expect(
+    await expect(
       async () => await authenticateUseCase.execute(createOrg.email, "1234567")
     ).rejects.toBeInstanceOf(InvalidCredentialsError);
   });

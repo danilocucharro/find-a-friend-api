@@ -10,4 +10,5 @@ export interface PetsRepository {
     independency?: string,
     size?: string
   ): Promise<Pet[] | undefined>;
+  findById(petId: string): Promise<Pet | null>;
 }
