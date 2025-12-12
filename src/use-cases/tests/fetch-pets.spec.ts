@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { FetchPetsUseCase } from "../fetch-pets.js";
 import { CreatePetUseCase } from "../create-pet.js";
 import { createOrgAndAuthenticate } from "../utils/tests/create-org-and-authenticate.js";
-import { BadRequestError } from "../errors/BadRequestError.js";
+import { BadRequestError } from "../errors/bad-request-error.js";
 
 describe("Fetch Pets Use Case", () => {
   it("should be able to search pets by city and pet infos", async () => {

@@ -3,7 +3,7 @@ import { createOrgAndAuthenticate } from "../utils/tests/create-org-and-authenti
 import { InMemoryPetsRepository } from "src/repositories/in-memory/in-memory-pets-repository.js";
 import { CreatePetUseCase } from "../create-pet.js";
 import { GetPetInfoUseCase } from "../get-pet-info.js";
-import { ContentNotFoundError } from "../errors/ContentNotFoundError.js";
+import { ContentNotFoundError } from "../errors/content-not-found-error.js";
 
 describe("Get Pet Info Use Case", () => {
   it("should be able to get a pet details", async () => {

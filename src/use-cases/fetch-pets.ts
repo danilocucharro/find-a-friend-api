@@ -1,5 +1,5 @@
 import type { Pet } from "@prisma/client";
-import { ContentNotFoundError } from "./errors/ContentNotFoundError.js";
+import { ContentNotFoundError } from "./errors/content-not-found-error.js";
 import type { PetsRepository } from "src/repositories/pets-repository.js";
 
 interface FetchPetsUseCaseRequest {

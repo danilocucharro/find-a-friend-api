@@ -1,8 +1,8 @@
 import type { Prisma, Pet } from "@prisma/client";
 import type { PetsRepository } from "../pets-repository.js";
 import { randomUUID } from "node:crypto";
-import { ContentNotFoundError } from "src/use-cases/errors/ContentNotFoundError.js";
-import { BadRequestError } from "src/use-cases/errors/BadRequestError.js";
+import { ContentNotFoundError } from "src/use-cases/errors/content-not-found-error.js";
+import { BadRequestError } from "src/use-cases/errors/bad-request-error.js";
 
 export class InMemoryPetsRepository implements PetsRepository {
   public pets: Pet[] = [];

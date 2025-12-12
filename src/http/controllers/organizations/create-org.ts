@@ -1,4 +1,5 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { UserAlreadyExistsError } from "src/use-cases/errors/org-already-exists-error.js";
 import { makeCreateOrgUseCase } from "src/use-cases/factories/make-create-org-use-case.js";
 import z from "zod";
 
@@ -21,15 +22,23 @@ export async function createOrgController(
 
   const createOrgUseCase = makeCreateOrgUseCase();
 
-  await createOrgUseCase.execute({
-    address,
-    city,
-    email,
-    name,
-    password,
-    phone,
-    state,
-  });
+  try {
+    await createOrgUseCase.execute({
+      address,
+      city,
+      email,
+      name,
+      password,
+      phone,
+      state,
+    });
+  } catch (error) {
+    if (error instanceof UserAlreadyExistsError) {
+      reply.status(409).send({
+        message: error.message,
+      });
+    }
+  }
 
   reply.status(201).send({
     organization: {
