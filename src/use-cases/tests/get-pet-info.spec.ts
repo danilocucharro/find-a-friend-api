@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createOrgAndAuthenticate } from "../utils/tests/createOrgAndAuthenticate.js";
+import { createOrgAndAuthenticate } from "../utils/tests/create-org-and-authenticate.js";
 import { InMemoryPetsRepository } from "src/repositories/in-memory/in-memory-pets-repository.js";
 import { CreatePetUseCase } from "../create-pet.js";
 import { GetPetInfoUseCase } from "../get-pet-info.js";

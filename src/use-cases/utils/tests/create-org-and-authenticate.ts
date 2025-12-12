@@ -16,13 +16,13 @@ export async function createOrgAndAuthenticate() {
     phone: "11999999999",
   };
 
-  const orgCreated = await createOrgUseCase.execute(createOrg);
+  await createOrgUseCase.execute(createOrg);
 
   const authenticateUseCase = new AuthenticateUseCase(orgsRepository);
-  const { org } = await authenticateUseCase.execute(
-    orgCreated.org.email,
-    "123456"
-  );
+  const { org } = await authenticateUseCase.execute({
+    email: "seupetfeliz@email.com",
+    password: "123456",
+  });
 
   return { org };
 }

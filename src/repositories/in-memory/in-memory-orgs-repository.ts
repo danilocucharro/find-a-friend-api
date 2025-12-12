@@ -13,7 +13,7 @@ export class InMemoryOrgsRepository implements OrgsRepository {
       city: data.city,
       email: data.email,
       name: data.name,
-      password: await hash(data.password, 6),
+      password: data.password,
       phone: data.phone,
       state: data.state,
     };

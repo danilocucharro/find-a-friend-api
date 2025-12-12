@@ -1,6 +1,16 @@
 import { compare } from "bcryptjs";
 import { InvalidCredentialsError } from "src/use-cases/errors/InvalidCredentialsError.js";
 import type { OrgsRepository } from "src/repositories/orgs-repository.js";
+import type { Organization } from "@prisma/client";
+
+interface AuthenticateUseCaseRequest {
+  email: string;
+  password: string;
+}
+
+interface AuthenticateUseCaseResponse {
+  org: Organization;
+}
 
 export class AuthenticateUseCase {
   private orgsRepository;
@@ -9,7 +19,10 @@ export class AuthenticateUseCase {
     this.orgsRepository = orgsRepository;
   }
 
-  async execute(email: string, password: string) {
+  async execute({
+    email,
+    password,
+  }: AuthenticateUseCaseRequest): Promise<AuthenticateUseCaseResponse> {
     const org = await this.orgsRepository.findByEmail(email);
 
     if (!org) {
@@ -17,6 +30,7 @@ export class AuthenticateUseCase {
     }
 
     const isPasswordCorrect = await compare(password, org.password);
+    console.log(isPasswordCorrect);
 
     if (!isPasswordCorrect) {
       throw new InvalidCredentialsError();

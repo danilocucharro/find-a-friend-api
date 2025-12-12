@@ -2,8 +2,7 @@ import { InMemoryPetsRepository } from "src/repositories/in-memory/in-memory-pet
 import { describe, expect, it } from "vitest";
 import { FetchPetsUseCase } from "../fetch-pets.js";
 import { CreatePetUseCase } from "../create-pet.js";
-import { createOrgAndAuthenticate } from "../utils/tests/createOrgAndAuthenticate.js";
-import { ContentNotFoundError } from "../errors/ContentNotFoundError.js";
+import { createOrgAndAuthenticate } from "../utils/tests/create-org-and-authenticate.js";
 import { BadRequestError } from "../errors/BadRequestError.js";
 
 describe("Fetch Pets Use Case", () => {
