@@ -20,9 +20,9 @@ export async function createOrgController(
   const { address, city, email, name, password, phone, state } =
     createOrgSchema.parse(request.body);
 
-  const createOrgUseCase = makeCreateOrgUseCase();
-
   try {
+    const createOrgUseCase = makeCreateOrgUseCase();
+
     await createOrgUseCase.execute({
       address,
       city,
@@ -32,22 +32,22 @@ export async function createOrgController(
       phone,
       state,
     });
+
+    return reply.status(201).send({
+      organization: {
+        address,
+        city,
+        email,
+        name,
+        phone,
+        state,
+      },
+    });
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
-      reply.status(409).send({
+      return reply.status(409).send({
         message: error.message,
       });
     }
   }
-
-  reply.status(201).send({
-    organization: {
-      address,
-      city,
-      email,
-      name,
-      phone,
-      state,
-    },
-  });
 }

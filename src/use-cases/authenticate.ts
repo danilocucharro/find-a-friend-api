@@ -30,7 +30,6 @@ export class AuthenticateUseCase {
     }
 
     const isPasswordCorrect = await compare(password, org.password);
-    console.log(isPasswordCorrect);
 
     if (!isPasswordCorrect) {
       throw new InvalidCredentialsError();
