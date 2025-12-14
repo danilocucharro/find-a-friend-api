@@ -1,10 +1,6 @@
 import { InMemoryOrgsRepository } from "src/repositories/in-memory/in-memory-orgs-repository.js";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { CreateOrgUseCase } from "../create-org.js";
-
-beforeAll(() => {});
-
-afterAll(() => {});
 
 describe("Create Org Use Case", () => {
   it("Should be able to create an organization", async () => {

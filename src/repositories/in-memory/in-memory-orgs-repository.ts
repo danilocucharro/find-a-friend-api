@@ -1,7 +1,6 @@
-import type { Organization, Pet, Prisma } from "@prisma/client";
+import type { Organization, Prisma } from "@prisma/client";
 import type { OrgsRepository } from "../orgs-repository.js";
 import { randomUUID } from "node:crypto";
-import { hash } from "bcryptjs";
 
 export class InMemoryOrgsRepository implements OrgsRepository {
   public orgs: Organization[] = [];
@@ -19,6 +18,14 @@ export class InMemoryOrgsRepository implements OrgsRepository {
     };
 
     this.orgs.push(org);
+
+    return org;
+  }
+
+  async findById(id: string) {
+    const org = this.orgs.find((org) => org.id === id);
+
+    if (!org) return null;
 
     return org;
   }

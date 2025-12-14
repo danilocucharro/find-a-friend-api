@@ -4,10 +4,32 @@ import { InMemoryPetsRepository } from "src/repositories/in-memory/in-memory-pet
 import { CreatePetUseCase } from "../create-pet.js";
 import { GetPetInfoUseCase } from "../get-pet-info.js";
 import { ContentNotFoundError } from "../errors/content-not-found-error.js";
+import { InMemoryOrgsRepository } from "src/repositories/in-memory/in-memory-orgs-repository.js";
+import { AuthenticateUseCase } from "../authenticate.js";
+import { CreateOrgUseCase } from "../create-org.js";
 
 describe("Get Pet Info Use Case", () => {
   it("should be able to get a pet details", async () => {
-    const { org } = await createOrgAndAuthenticate();
+    const orgsRepository = new InMemoryOrgsRepository();
+    const createOrgUseCase = new CreateOrgUseCase(orgsRepository);
+
+    const createOrg = {
+      name: "Seu pet feliz",
+      address: "Rua das pedras 23",
+      city: "Curitiba",
+      state: "PR",
+      email: "seupetfeliz@email.com",
+      password: "123456",
+      phone: "11999999999",
+    };
+
+    await createOrgUseCase.execute(createOrg);
+
+    const authenticateUseCase = new AuthenticateUseCase(orgsRepository);
+    const { org } = await authenticateUseCase.execute({
+      email: "seupetfeliz@email.com",
+      password: "123456",
+    });
 
     const createPet = {
       about: "Um cachorro vira-lata caramelo bem fofinho",
@@ -22,7 +44,10 @@ describe("Get Pet Info Use Case", () => {
     };
 
     const petsRepository = new InMemoryPetsRepository();
-    const createPetUseCase = new CreatePetUseCase(petsRepository);
+    const createPetUseCase = new CreatePetUseCase(
+      petsRepository,
+      orgsRepository
+    );
 
     const { pet } = await createPetUseCase.execute(createPet);
 
@@ -38,7 +63,26 @@ describe("Get Pet Info Use Case", () => {
   });
 
   it("should NOT be able to get a pet details", async () => {
-    const { org } = await createOrgAndAuthenticate();
+    const orgsRepository = new InMemoryOrgsRepository();
+    const createOrgUseCase = new CreateOrgUseCase(orgsRepository);
+
+    const createOrg = {
+      name: "Seu pet feliz",
+      address: "Rua das pedras 23",
+      city: "Curitiba",
+      state: "PR",
+      email: "seupetfeliz@email.com",
+      password: "123456",
+      phone: "11999999999",
+    };
+
+    await createOrgUseCase.execute(createOrg);
+
+    const authenticateUseCase = new AuthenticateUseCase(orgsRepository);
+    const { org } = await authenticateUseCase.execute({
+      email: "seupetfeliz@email.com",
+      password: "123456",
+    });
 
     const createPet = {
       about: "Um cachorro vira-lata caramelo bem fofinho",
@@ -53,7 +97,10 @@ describe("Get Pet Info Use Case", () => {
     };
 
     const petsRepository = new InMemoryPetsRepository();
-    const createPetUseCase = new CreatePetUseCase(petsRepository);
+    const createPetUseCase = new CreatePetUseCase(
+      petsRepository,
+      orgsRepository
+    );
 
     const { pet } = await createPetUseCase.execute(createPet);
 
