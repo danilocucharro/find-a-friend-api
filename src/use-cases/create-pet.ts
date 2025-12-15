@@ -7,7 +7,7 @@ import { PermissionDeniedError } from "./errors/permission-denied-error.js";
 interface CreatePetUseCaseRequest {
   name: string;
   about: string | null;
-  energy_level: number;
+  energy_level: string;
   size: string;
   age: string;
   independency: string;

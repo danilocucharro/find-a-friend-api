@@ -31,7 +31,7 @@ describe("Create Pet Use Case", () => {
     const createPet = {
       about: "Um cachorro vira-lata caramelo bem fofinho",
       age: "Filhote",
-      energy_level: 5,
+      energy_level: "Muita Energia",
       environment: "Ambiente amplo",
       independency: "Baixo",
       city: org.city,
@@ -75,7 +75,7 @@ describe("Create Pet Use Case", () => {
     const createPet = {
       about: "Um cachorro vira-lata caramelo bem fofinho",
       age: "Filhote",
-      energy_level: 5,
+      energy_level: "Muita Energia",
       environment: "Ambiente amplo",
       independency: "Baixo",
       city: org.city,

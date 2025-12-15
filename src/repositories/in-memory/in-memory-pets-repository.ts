@@ -37,11 +37,11 @@ export class InMemoryPetsRepository implements PetsRepository {
 
   async fetchPetsByCityAndPetInfo(
     city: string,
-    age?: string,
-    energy_level?: number,
-    environment?: string,
-    independency?: string,
-    size?: string
+    age: string,
+    energy_level: string,
+    environment: string,
+    independency: string,
+    size: string
   ) {
     if (!city) throw new BadRequestError();
 

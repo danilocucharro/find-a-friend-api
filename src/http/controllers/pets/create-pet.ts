@@ -11,7 +11,7 @@ export async function createPetController(
   const createPetSchema = z.object({
     about: z.string().nullable(),
     age: z.string(),
-    energy_level: z.number().max(5),
+    energy_level: z.string(),
     environment: z.string(),
     independency: z.string(),
     name: z.string(),

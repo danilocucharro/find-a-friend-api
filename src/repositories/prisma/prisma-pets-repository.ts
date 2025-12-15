@@ -21,20 +21,28 @@ export class PrismaPetsRepository implements PetsRepository {
 
   async fetchPetsByCityAndPetInfo(
     city: string,
-    age?: string,
-    energy_level?: number,
-    environment?: string,
-    independency?: string,
-    size?: string
+    age: string,
+    energy_level: string,
+    environment: string,
+    independency: string,
+    size: string
   ) {
     const pets = await prisma.pet.findMany({
       where: {
         city,
-        age: age ?? "",
-        energy_level: energy_level ?? 3,
-        environment: environment ?? "",
-        independency: independency ?? "",
-        size: size ?? "",
+        age: {
+          contains: age,
+        },
+        energy_level: {
+          contains: energy_level,
+        },
+        environment: {
+          contains: environment,
+        },
+        independency: {
+          contains: independency,
+        },
+        size: { contains: size },
       },
     });
 
