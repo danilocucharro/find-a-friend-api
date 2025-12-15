@@ -11,7 +11,7 @@ interface GetPetInfoUseCaseResponse {
 }
 
 export class GetPetInfoUseCase {
-  public petsRepository: PetsRepository;
+  private petsRepository: PetsRepository;
 
   constructor(petsRepository: PetsRepository) {
     this.petsRepository = petsRepository;
