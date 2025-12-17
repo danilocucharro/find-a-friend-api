@@ -1,8 +1,8 @@
-import { prisma } from "src/lib/prisma.js";
-import request from "supertest";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import request from "supertest";
+import { prisma } from "src/lib/prisma.js";
 
-describe("Create Org (e2e)", () => {
+describe("Authenticate ()e2e)", () => {
   let app: any;
 
   // arquivo de teste
@@ -19,8 +19,8 @@ describe("Create Org (e2e)", () => {
     await app.close();
   });
 
-  it("should be able to create a organization", async () => {
-    const response = await request(app.server).post("/orgs").send({
+  it("should be able to authenticate", async () => {
+    await request(app.server).post("/orgs").send({
       name: "Seu pet feliz",
       address: "Rua das pedras 23",
       city: "Curitiba",
@@ -30,8 +30,18 @@ describe("Create Org (e2e)", () => {
       phone: "11999999999",
     });
 
-    console.log(response.body);
-    expect(response.statusCode).toEqual(201);
+    const authResponse = await request(app.server).post("/sessions").send({
+      email: "seupetfelizteste2e@email.com",
+      password: "123456",
+    });
+
+    expect(authResponse.statusCode).toEqual(200);
+
+    expect(authResponse.body).toEqual(
+      expect.objectContaining({
+        token: expect.any(String),
+      })
+    );
 
     await prisma.organization.delete({
       where: {
