@@ -64,18 +64,6 @@ describe("Create Pet (e2e)", () => {
       })
     );
 
-    const createdPet = await prisma.pet.findFirst({
-      where: {
-        name: "Pedro",
-      },
-    });
-
-    await prisma.pet.delete({
-      where: {
-        id: createdPet?.id!,
-      },
-    });
-
     await prisma.organization.delete({
       where: {
         email: "seupetfelizteste2e@email.com",

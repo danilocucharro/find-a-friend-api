@@ -38,7 +38,7 @@ model Pet {
   city String
   created_at DateTime @default(now())
 
-  org Organization @relation(fields: [org_id], references: [id])
+  org Organization @relation(fields: [org_id], references: [id], onDelete: Cascade)
   org_id String
 
   @@map("pets")
