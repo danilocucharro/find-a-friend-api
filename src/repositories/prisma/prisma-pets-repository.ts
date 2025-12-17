@@ -1,4 +1,4 @@
-import type { Pet, Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 import type { PetsRepository } from "../pets-repository.js";
 import { prisma } from "src/lib/prisma.js";
 

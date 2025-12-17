@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest watch",
+    "test:watch": "vitest watch --project unit",
+    "test:e2e:watch": "vitest watch --project e2e",
     "dev": "tsx watch src/server.ts"
   },
   "type": "module",
@@ -15,9 +16,14 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.16.0",
+    "@types/supertest": "^6.0.3",
+    "@vitest/coverage-v8": "^4.0.16",
+    "@vitest/ui": "^4.0.16",
     "prisma": "^7.1.0",
+    "supertest": "^7.1.4",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^6.0.1",
     "vitest": "^4.0.15"
   },
   "dependencies": {
@@ -28,7 +34,6 @@
     "dotenv": "^17.2.3",
     "fastify": "^5.6.2",
     "pg": "^8.16.3",
-    "vite-tsconfig-paths": "^5.1.4",
     "zod": "^4.1.13"
   }
 }

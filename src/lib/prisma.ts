@@ -3,7 +3,9 @@ import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { env } from "src/env/index.js";
 
-const pool = new Pool({ connectionString: env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
+const databaseUrl = process.env.DATABASE_URL || env.DATABASE_URL;
 
+const pool = new Pool({ connectionString: databaseUrl });
+const adapter = new PrismaPg(pool);
+console.log("PRISMA ESTA CONECTADO EM => ", databaseUrl);
 export const prisma = new PrismaClient({ adapter });
