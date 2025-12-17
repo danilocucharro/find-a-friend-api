@@ -1,4 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
+import { ContentNotFoundError } from "src/use-cases/errors/content-not-found-error.js";
+import { PermissionDeniedError } from "src/use-cases/errors/permission-denied-error.js";
 import { makeCreatePetUseCase } from "src/use-cases/factories/make-create-pet-use-case.js";
 import z from "zod";
 
@@ -35,5 +37,17 @@ export async function createPetController(
     });
 
     return reply.status(201).send(pet);
-  } catch (error) {}
+  } catch (error) {
+    if (error instanceof ContentNotFoundError) {
+      return reply.status(404).send({
+        message: error.message,
+      });
+    }
+
+    if (error instanceof PermissionDeniedError) {
+      return reply.status(403).send({
+        message: error.message,
+      });
+    }
+  }
 }

@@ -30,7 +30,6 @@ describe("Create Org (e2e)", () => {
       phone: "11999999999",
     });
 
-    console.log(response.body);
     expect(response.statusCode).toEqual(201);
 
     await prisma.organization.delete({

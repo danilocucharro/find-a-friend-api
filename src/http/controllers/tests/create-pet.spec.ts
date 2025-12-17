@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import request from "supertest";
 import { prisma } from "src/lib/prisma.js";
 
-describe("Authenticate (e2e)", () => {
+describe("Create Pet (e2e)", () => {
   let app: any;
 
   // arquivo de teste
@@ -19,7 +19,7 @@ describe("Authenticate (e2e)", () => {
     await app.close();
   });
 
-  it("should be able to authenticate", async () => {
+  it("should be able to create a pet", async () => {
     await request(app.server).post("/orgs").send({
       name: "Seu pet feliz",
       address: "Rua das pedras 23",
@@ -35,13 +35,46 @@ describe("Authenticate (e2e)", () => {
       password: "123456",
     });
 
-    expect(authResponse.statusCode).toEqual(200);
+    const userToken = authResponse.body.token;
 
-    expect(authResponse.body).toEqual(
+    const response = await request(app.server)
+      .post("/pets")
+      .set("Authorization", `Bearer ${userToken}`)
+      .send({
+        about: "Theo é um vira lata muoto astuto e doido",
+        age: "Maduro",
+        energy_level: "Muita Energia",
+        environment: "Ambiente amplo",
+        independency: "Alta",
+        name: "Pedro",
+        size: "Médio",
+      });
+
+    expect(response.statusCode).toEqual(201);
+
+    expect(response.body).toEqual(
       expect.objectContaining({
-        token: expect.any(String),
+        about: "Theo é um vira lata muoto astuto e doido",
+        age: "Maduro",
+        energy_level: "Muita Energia",
+        environment: "Ambiente amplo",
+        independency: "Alta",
+        name: "Pedro",
+        size: "Médio",
       })
     );
+
+    const createdPet = await prisma.pet.findFirst({
+      where: {
+        name: "Pedro",
+      },
+    });
+
+    await prisma.pet.delete({
+      where: {
+        id: createdPet?.id!,
+      },
+    });
 
     await prisma.organization.delete({
       where: {
